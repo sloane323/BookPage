@@ -1,6 +1,16 @@
+
+import CommentInput from "../Componment/CommentInput";
+import React from 'react';
+
+
 const Review = () => {
+   
     return ( <div>
-       <p>리뷰남기기 프로그램 여기에 있소</p>
+    <h1> 리뷰남기기 </h1>
+
+          <CommentInput/>
+
+
     </div> );
 }
  

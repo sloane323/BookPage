@@ -1,31 +1,49 @@
 
 import "./Css/Headercss.css";
 
-import { Link} from 'react-router-dom';
-import{ ReactComponent as Alricon } from "./img/alr.svg";
-import{ ReactComponent as Menuicon } from "./img/meu.svg";
+import { SlShare } from 'react-icons/sl'; 
+import {SlOptions} from 'react-icons/sl';
+import {SlClose} from 'react-icons/sl';
 
-import React, { useState } from 'react';
-import Modal from 'react-modal';
-import {useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { Menu, Button } from 'antd';
+import styled from 'styled-components';
+import { BrowserView, MobileView } from 'react-device-detect';
+import { MenuOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+
+const MenuList = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const NavTop = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  button {
+    background: black;
+    border: none;
+  }
+`;
+
 
 const Header = () => {
- 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const [toggleMenu, setToggleMenu] = useState(false)
+  const [toggleBar, setToggleBar] = useState(true)
 
-  
+  const toggleChange = () => {
+    setToggleMenu(!toggleMenu)
+    setToggleBar(!toggleBar)
+  }
 
-  const [isOpen, setMenu] = useState(false);
-  const toggleMenu = () => {
-    setMenu(isOpen => !isOpen); // on,off 개념 boolean
-}
-
-
-  
+  const onMenuClick = () => {
+    setToggleMenu(!toggleMenu)
+    setToggleBar(!toggleBar)
+  }
 
     return (
-        <div id ="headerbig">
+        <div id ="headerbig"  >
 
            <div id = "titlename"> <span className ="e">너와나의 </span> 
             <span className ="highlight">  특별한동행 </span>  </div>
@@ -33,41 +51,53 @@ const Header = () => {
 
           <div id = "icon-hd"> 
 
-          <div id = "icon-hd1">
-             <div className="modalbig"> <div className="modalpa">
-            <button onClick={()=> setModalIsOpen(true)} >
-             <Alricon  /></button>  </div>
-             <div className = "modalup"> <Modal className = "modal"  isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
-              <p>읽지 않은 메시지가 있습니다</p> 
-             </Modal> </div> 
+             <div className="modalbig"> 
+             <div className="modalpa">
+            <button >
+             <SlShare size="25" color="#89CFD3" /></button>
              </div>
+             <div className="modalpa2">
+            <button onClick={toggleChange} >
+             { toggleBar ? <SlOptions size="25" color="#89CFD3" /> : <SlClose size="25" color="#89CFD3" /> }
+             </button>
              </div>
+             { toggleMenu &&
+          <Menu
+            defaultSelectedKeys={['1']}
+            mode="inline"
+            theme="light"
+            inlineCollapsed={toggleBar}
+            onClick={onMenuClick}
+          >
+            <Menu.Item key="subs">
+              구독하기
+            </Menu.Item>
+            <Menu.Item key="product">
+              상품 보기
+            </Menu.Item>
+            <Menu.Item key="cs">
+              고객센터
+            </Menu.Item>
+            <Menu.Item key="signin">
+              <Link to="/login">
+              로그인
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="signup">
+              <Link to="/signup">
+              회원가입
+              </Link>
+            </Menu.Item>
+          </Menu>
+        }
 
-          <div id = "icon-mu" >
-          <div id = "icon-hd2"  onClick={()=>toggleMenu()} ><Menuicon  /></div>
-          <div id = "sd-hd2">
-                      <ul className={isOpen ? "show-menu" : "hide-menu"}> <div>
-                        <li className="muli"><Link to='/' style={{ textDecoration: "none" , color :"white" , fontSize: "20px"}}>
-                         <span>HOME</span> </Link> </li>
-                        <li><Link to="/Info" style={{ textDecoration: "none" , color :"white" , fontSize: "20px"}}>
-                         <span>행사안내</span> </Link>  </li>
-                        <li><Link to="/Course" style={{ textDecoration: "none" , color :"white" , fontSize: "20px"}}>
-                         <span>코스안내</span></Link> </li>
-                        <li><Link to="/Booking"  style={{ textDecoration: "none" , color :"white" , fontSize: "20px"}}>
-                         <span>예약하기</span> </Link></li>
-                        <li><Link to="/Review"  style={{ textDecoration: "none" , color :"white" , fontSize: "20px"}}>
-                         <span>후기작성</span> </Link></li>
-          </div></ul>
-        </div>
+          </div>
+
+          </div> 
+          
+          
           
           </div>
-          
-          </div>
-
-
-
-          </div>
-    
       );
 }
 

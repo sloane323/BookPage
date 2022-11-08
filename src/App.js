@@ -18,14 +18,12 @@ import Menu from './Page/Meue';
 
 
 
+
 function App() {
   return (
     <div className="App">
-
-
         <Header />
         <Menu />
- 
 
     <div>
           <Routes> 

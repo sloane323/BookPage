@@ -9,10 +9,10 @@
 
 .mainbanner_01 {
 
-    width: 100%;
+    width: 98%;
     height: 600px;
-    border: 5px solid #a5eaee;
-    margin-top: -90px;
+    border: 10px solid #a5eaee;
+    top: -10px;
     color: black;
     font-family:  MICEGothic Bold;
 
@@ -27,7 +27,7 @@
 
 
 .maintitle2 {
-    margin-top: 50px;
+
 }
 
 
